@@ -1,6 +1,6 @@
 {
   "name": "plinq",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Programmatic UI sound library — pure Web Audio API synthesis, zero dependencies",
   "main": "./dist/index.cjs",
@@ -36,5 +36,20 @@
     "typescript": "^5.7.0",
     "tsup": "^8.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "audio",
+    "sound",
+    "ui",
+    "web-audio-api",
+    "synthesis",
+    "sound-effects",
+    "sfx"
+  ],
+  "author": "ndoherty-xyz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndoherty-xyz/plinq.git"
+  },
+  "homepage": "https://github.com/ndoherty-xyz/plinq#readme"
 }
