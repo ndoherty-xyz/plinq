@@ -12,6 +12,6 @@ const config: SoundConfig = {
   ],
 };
 
-export function tick(options?: PresetOptions): Promise<void> {
-  return playSound(config, options);
+export function tick(options?: PresetOptions): void {
+  playSound(config, options);
 }

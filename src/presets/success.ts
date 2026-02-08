@@ -23,6 +23,6 @@ const config: SoundConfig = {
   ],
 };
 
-export function success(options?: PresetOptions): Promise<void> {
-  return playSound(config, options);
+export function success(options?: PresetOptions): void {
+  playSound(config, options);
 }

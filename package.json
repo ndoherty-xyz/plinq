@@ -1,6 +1,6 @@
 {
   "name": "plinq",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "description": "Programmatic UI sound library — pure Web Audio API synthesis, zero dependencies",
   "main": "./dist/index.cjs",

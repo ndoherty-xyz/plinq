@@ -11,6 +11,6 @@ const config: SoundConfig = {
   ],
 };
 
-export function warning(options?: PresetOptions): Promise<void> {
-  return playSound(config, options);
+export function warning(options?: PresetOptions): void {
+  playSound(config, options);
 }

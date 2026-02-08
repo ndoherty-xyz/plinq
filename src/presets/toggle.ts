@@ -17,6 +17,6 @@ const config: SoundConfig = {
   ],
 };
 
-export function toggle(options?: PresetOptions): Promise<void> {
-  return playSound(config, options);
+export function toggle(options?: PresetOptions): void {
+  playSound(config, options);
 }
