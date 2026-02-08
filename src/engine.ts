@@ -1,4 +1,4 @@
-import { getContext } from "./context";
+import { getContextSync } from "./context";
 import { createNoiseBuffer } from "./utils";
 import type { SoundConfig, PresetOptions, LayerConfig } from "./types";
 
@@ -14,11 +14,8 @@ function getPitchMultiplier(pitch: PresetOptions["pitch"]): number {
   return PITCH_MAP[pitch] ?? 1;
 }
 
-export async function playSound(
-  config: SoundConfig,
-  options?: PresetOptions
-): Promise<void> {
-  const ctx = await getContext();
+export function playSound(config: SoundConfig, options?: PresetOptions): void {
+  const ctx = getContextSync();
   const volume = options?.volume ?? 1;
   const pitchMul = getPitchMultiplier(options?.pitch);
 
@@ -31,7 +28,7 @@ function playLayer(
   ctx: AudioContext,
   layer: LayerConfig,
   volume: number,
-  pitchMul: number
+  pitchMul: number,
 ): void {
   const startTime = ctx.currentTime + (layer.delay ?? 0);
   const curve = layer.envelope.curve ?? "exponential";
@@ -49,7 +46,7 @@ function playLayer(
       if (curve === "exponential") {
         osc.frequency.exponentialRampToValueAtTime(
           Math.max(endFreq, 0.001),
-          rampEnd
+          rampEnd,
         );
       } else {
         osc.frequency.linearRampToValueAtTime(endFreq, rampEnd);
@@ -72,7 +69,7 @@ function playLayer(
     filterNode.type = layer.filter.type;
     filterNode.frequency.setValueAtTime(
       layer.filter.frequency * pitchMul,
-      startTime
+      startTime,
     );
     if (layer.filter.Q != null) {
       filterNode.Q.setValueAtTime(layer.filter.Q, startTime);
@@ -89,13 +86,13 @@ function playLayer(
   if (curve === "exponential") {
     gainNode.gain.exponentialRampToValueAtTime(
       Math.max(peakGain, 0.001),
-      startTime + layer.envelope.attack
+      startTime + layer.envelope.attack,
     );
     gainNode.gain.exponentialRampToValueAtTime(0.001, decayEnd);
   } else {
     gainNode.gain.linearRampToValueAtTime(
       peakGain,
-      startTime + layer.envelope.attack
+      startTime + layer.envelope.attack,
     );
     gainNode.gain.linearRampToValueAtTime(0, decayEnd);
   }
@@ -115,9 +112,6 @@ function playLayer(
 }
 
 /** Escape-hatch: play an arbitrary SoundConfig directly */
-export async function play(
-  config: SoundConfig,
-  options?: PresetOptions
-): Promise<void> {
-  await playSound(config, options);
+export function play(config: SoundConfig, options?: PresetOptions): void {
+  playSound(config, options);
 }

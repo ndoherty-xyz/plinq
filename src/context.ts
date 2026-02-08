@@ -1,5 +1,15 @@
 let ctx: AudioContext | null = null;
 
+function createContext(): AudioContext {
+  const newCtx = new AudioContext();
+  newCtx.addEventListener("statechange", () => {
+    if (newCtx.state === "suspended") {
+      newCtx.resume().catch(() => {});
+    }
+  });
+  return newCtx;
+}
+
 export async function getContext(): Promise<AudioContext> {
   // Discard a context that was closed (by us or the browser)
   if (ctx && ctx.state === "closed") {
@@ -7,7 +17,7 @@ export async function getContext(): Promise<AudioContext> {
   }
 
   if (!ctx) {
-    ctx = new AudioContext();
+    ctx = createContext();
   }
 
   // Resume if not running (covers 'suspended' and 'interrupted' states)
@@ -18,11 +28,21 @@ export async function getContext(): Promise<AudioContext> {
     // Re-read .state off the instance since TS narrows it inside this block.
     if ((ctx as AudioContext).state !== "running") {
       ctx.close().catch(() => {});
-      ctx = new AudioContext();
+      ctx = createContext();
       await ctx.resume();
     }
   }
 
+  return ctx;
+}
+
+export function getContextSync(): AudioContext {
+  if (!ctx || ctx.state === "closed") {
+    ctx = createContext();
+  }
+  if (ctx.state !== "running") {
+    ctx.resume().catch(() => {});
+  }
   return ctx;
 }
 
