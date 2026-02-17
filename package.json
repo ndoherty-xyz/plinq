@@ -26,7 +26,15 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "site": "pnpm build && pnpm --filter site dev",
-    "site:build": " pnpm build && pnpm --filter site build"
+    "site:build": "pnpm build && pnpm --filter site build",
+    "release:patch": "npm version patch && git push && git push --tags && gh release create v$(node -p \"require('./package.json').version\") --generate-notes",
+    "release:minor": "npm version minor && git push && git push --tags && gh release create v$(node -p \"require('./package.json').version\") --generate-notes",
+    "release:major": "npm version major && git push && git push --tags && gh release create v$(node -p \"require('./package.json').version\") --generate-notes"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "devDependencies": {
     "tsup": "^8.0.0",
