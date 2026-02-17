@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -17,13 +17,18 @@
     <meta name="twitter:description" content="Dependency-free library for creating programmatic UI sounds using the Web Audio API." />
 
     <title>plinq — UI sound library</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script>
       const t = localStorage.getItem("plinq-theme");
       if (t === "light") document.documentElement.classList.remove("dark");
-      document.documentElement.style.background = t === "light" ? "#fafafa" : "#09090b";
+      document.documentElement.style.background =
+        t === "light" ? "#fafafa" : "#09090b";
     </script>
   </head>
   <body>
