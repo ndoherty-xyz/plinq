@@ -2,6 +2,8 @@
 
 Dependency-free library for creating programmatic UI sounds. Inspired by [Sounds on the Web](https://www.userinterface.wiki/sounds-on-the-web) by Raphael Salaja.
 
+[Docs & Playground](https://plinq.dev)
+
 ## Install
 
 ```bash
