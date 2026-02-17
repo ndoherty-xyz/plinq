@@ -56,5 +56,6 @@
     "type": "git",
     "url": "git+https://github.com/ndoherty-xyz/plinq.git"
   },
-  "homepage": "https://github.com/ndoherty-xyz/plinq#readme"
+  "homepage": "https://github.com/ndoherty-xyz/plinq#readme",
+  "packageManager": "pnpm@10.26.2"
 }
