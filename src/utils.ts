@@ -20,3 +20,7 @@ export function createNoiseBuffer(
   noiseCache.set(key, buffer);
   return buffer;
 }
+
+export function clearNoiseCache(): void {
+  noiseCache.clear();
+}

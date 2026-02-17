@@ -1,4 +1,4 @@
-import { getContextSync } from "./context";
+import { getContext } from "./context";
 import { createNoiseBuffer } from "./utils";
 import type { SoundConfig, PresetOptions, LayerConfig } from "./types";
 
@@ -15,7 +15,7 @@ function getPitchMultiplier(pitch: PresetOptions["pitch"]): number {
 }
 
 export function playSound(config: SoundConfig, options?: PresetOptions): void {
-  const ctx = getContextSync();
+  const ctx = getContext();
   const volume = options?.volume ?? 1;
   const pitchMul = getPitchMultiplier(options?.pitch);
 
@@ -94,7 +94,7 @@ function playLayer(
       peakGain,
       startTime + layer.envelope.attack,
     );
-    gainNode.gain.linearRampToValueAtTime(0, decayEnd);
+    gainNode.gain.linearRampToValueAtTime(0.001, decayEnd);
   }
 
   // --- connect chain ---
@@ -109,6 +109,17 @@ function playLayer(
   // --- start & stop ---
   sourceNode.start(startTime);
   sourceNode.stop(decayEnd + 0.05);
+
+  // Disconnect nodes after playback to prevent audio graph accumulation.
+  sourceNode.addEventListener(
+    "ended",
+    () => {
+      sourceNode.disconnect();
+      if (filterNode) filterNode.disconnect();
+      gainNode.disconnect();
+    },
+    { once: true },
+  );
 }
 
 /** Escape-hatch: play an arbitrary SoundConfig directly */

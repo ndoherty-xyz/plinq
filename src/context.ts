@@ -1,68 +1,37 @@
+import { clearNoiseCache } from "./utils";
+
 let ctx: AudioContext | null = null;
 
-function createContext(): AudioContext {
-  const newCtx = new AudioContext();
-  newCtx.addEventListener("statechange", () => {
-    if (newCtx.state === "suspended") {
-      newCtx.resume().catch(() => {});
+// Suspend on blur — prevents Safari from silently disconnecting audio output
+// while reporting state === "running".
+if (typeof document !== "undefined") {
+  window.addEventListener("blur", () => {
+    if (ctx && ctx.state === "running") {
+      ctx.suspend().catch(() => {});
     }
   });
-  return newCtx;
 }
 
-export async function getContext(): Promise<AudioContext> {
-  // Discard a context that was closed (by us or the browser)
-  if (ctx && ctx.state === "closed") {
+export function getContext(): AudioContext {
+  const state = ctx?.state as string | undefined;
+
+  // Discard contexts that are closed or in Safari's non-standard "interrupted"
+  // state — an interrupted context cannot be reliably resumed.
+  if (ctx && (state === "closed" || state === "interrupted")) {
+    clearNoiseCache();
     ctx = null;
   }
 
   if (!ctx) {
-    ctx = createContext();
+    ctx = new AudioContext();
   }
 
-  // Resume if not running (covers 'suspended' and 'interrupted' states)
-  if (ctx.state !== "running") {
-    await ctx.resume();
+  ctx.resume().catch(() => {});
 
-    // If resume silently failed, scrap the context and create a fresh one.
-    // Re-read .state off the instance since TS narrows it inside this block.
-    if ((ctx as AudioContext).state !== "running") {
-      ctx.close().catch(() => {});
-      ctx = createContext();
-      await ctx.resume();
-    }
-  }
-
-  return ctx;
-}
-
-export function getContextSync(): AudioContext {
-  if (!ctx || ctx.state === "closed") {
-    ctx = createContext();
-  }
-  if (ctx.state !== "running") {
-    ctx.resume().catch(() => {});
-  }
   return ctx;
 }
 
 export function setContext(userCtx: AudioContext): void {
+  clearNoiseCache();
   ctx = userCtx;
-}
-
-// Proactively resume the context when the page becomes visible again so
-// the first sound after a tab-switch doesn't pay the resume latency.
-if (typeof document !== "undefined") {
-  document.addEventListener("visibilitychange", () => {
-    if (
-      document.visibilityState === "visible" &&
-      ctx &&
-      ctx.state !== "running"
-    ) {
-      ctx.resume().catch(() => {
-        ctx?.close().catch(() => {});
-        ctx = null;
-      });
-    }
-  });
 }
