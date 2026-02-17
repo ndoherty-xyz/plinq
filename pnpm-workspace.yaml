@@ -1,1 +1,6 @@
-approveBuilds: esbuild
+packages:
+  - "."
+  - "site"
+
+onlyBuiltDependencies:
+  - esbuild

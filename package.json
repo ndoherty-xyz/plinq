@@ -25,12 +25,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "playground": "vite playground"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
+    "site": "pnpm build && pnpm --filter site dev",
+    "site:build": " pnpm build && pnpm --filter site build"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
