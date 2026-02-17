@@ -7,12 +7,12 @@ const config: SoundConfig = {
       source: {
         type: "oscillator",
         waveform: "sine",
-        frequency: 277,
-        frequencyEnd: 117,
+        frequency: 523,
+        frequencyEnd: 654,
       },
-      filter: { type: "lowpass", frequency: 254, Q: 0.1 },
-      envelope: { attack: 0.001, decay: 0.06 },
-      gain: 0.1,
+      envelope: { attack: 0.007, decay: 0.11 },
+      gain: 0.13,
+      filter: { type: "lowpass", frequency: 393, Q: 5.5 },
     },
   ],
 };

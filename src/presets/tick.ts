@@ -4,9 +4,8 @@ import type { SoundConfig, PresetOptions } from "../types";
 const config: SoundConfig = {
   layers: [
     {
-      source: { type: "noise" },
-      filter: { type: "highpass", frequency: 4000, Q: 0.5 },
-      envelope: { attack: 0.001, decay: 0.03 },
+      source: { type: "oscillator", waveform: "sine", frequency: 740 },
+      envelope: { attack: 0.007, decay: 0.11 },
       gain: 0.15,
     },
   ],
