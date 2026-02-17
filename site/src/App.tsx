@@ -157,6 +157,25 @@ export function App() {
           <h2 className="text-sm font-medium text-zinc-800 dark:text-zinc-200 mb-2">Playground</h2>
           <Playground />
         </section>
+
+        {/* Playground */}
+        <section className="pb-16">
+          <h2 className="text-sm font-medium text-zinc-800 dark:text-zinc-200 mb-2">Acknowledgements</h2>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-10 text-balance leading-relaxed">
+            Huge inspiration from{" "}
+            <a href="https://www.userinterface.wiki/sounds-on-the-web" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              Sounds on the Web
+            </a>{" "}
+            and{" "}
+            <a href="https://www.userinterface.wiki/generating-sounds-with-ai" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              Generating Sounds with AI
+            </a>{" "}
+            by{" "}
+            <a href="https://x.com/raphaelsalaja" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
+              Raphael Salaja
+            </a>.
+          </p>
+        </section>
       </main>
 
       <footer className="py-8 text-center text-[13px] text-zinc-400 dark:text-zinc-500 flex items-center justify-center gap-3">
