@@ -1,6 +1,6 @@
 # plinq
 
-Programmatic UI sounds — pure Web Audio API synthesis, zero dependencies. Inspired by [Sounds on the Web](https://www.userinterface.wiki/sounds-on-the-web) by Raphael Salaja.
+Dependency-free library for creating programmatic UI sounds. Inspired by [Sounds on the Web](https://www.userinterface.wiki/sounds-on-the-web) by Raphael Salaja.
 
 ## Install
 
@@ -14,6 +14,10 @@ pnpm add plinq
 
 ```bash
 yarn add plinq
+```
+
+```bash
+bun add plinq
 ```
 
 ## Quick Start
